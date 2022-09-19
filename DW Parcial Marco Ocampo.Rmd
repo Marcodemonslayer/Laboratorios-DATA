@@ -1,0 +1,152 @@
+---
+title: "dw-2022-parcial-1"
+author: "Tepi"
+date: "9/19/2022"
+output: rmarkdown::github_document
+
+---
+
+# Examen parcial
+
+Indicaciones generales:
+
+* Usted tiene el período de la clase para resolver el examen parcial.
+* La entrega del parcial, al igual que las tareas, es por medio de su cuenta de github, pegando el link en el portal de MiU.
+
+
+* Pueden hacer uso del material del curso e internet (stackoverflow, etc.). Sin embargo, si encontramos algún indicio de copia, se anulará el exámen para los estudiantes involucrados. Por lo tanto, aconsejamos no compartir las agregaciones que generen. 
+
+## Sección I: Preguntas teóricas.
+
+* Existen 10 preguntas directas en este Rmarkdown, de las cuales usted deberá responder 5. Las 5 a responder estarán determinadas por un muestreo aleatorio basado en su número de carné.
+
+* Ingrese su número de carné en  `set.seed()` y corra el chunk de R para determinar cuáles preguntas debe responder.
+
+
+```{r, echo=TRUE, cache=TRUE}
+
+#set.seed("20200411") 
+v<- 1:10
+preguntas <-sort(sample(v, size = 5, replace = FALSE ))
+
+paste0("Mis preguntas a resolver son: ",paste0(preguntas,collapse = ", "))
+
+```
+
+###Me tocaron las preguntas:
+4
+5
+6
+7
+8
+
+###Preguntas a resolver:
+
+4. ¿Cuál es la diferencia entre utilizar `==` y `=` en R?
+
+Respuesta 4: La diferencia principal es que `=` es un operador de asignación para definir las variables, es similar a utilizar el operador distintivo de R `<-`. Si usamos el operador `==` es porque lo que estamos haciendo es realizar una operación y que eso sea igual al parámetro que dimos. 
+
+5. ¿Cuál es la forma correcta de cargar un archivo de texto  donde el delimitador es `:`?
+
+Respuesta 5: La forma correcta de carga un archivo puede ser utilizando la función de "readcvs()" y modificar el delimitador de coma(,) a doble punto(:) O también tenemos la opción de darle en la esquina superior derecha a "Import Dataset", seleccionar el archivo de texto y definir que el limitador que queremos es ´:´. De esta manera nos aseguramos de que R nos despliegue la data de manera ordenada. 
+
+6. ¿Qué es un vector y en qué se diferencia en una lista en R?
+
+Respuesta 6: Un vector es una matriz que almacena datos del mismo tipo. Esto es un conjunto de elementos ordenados en fila. 
+Las listas en R tienen la característica de poder guardar tipos de datos diferentes. 
+
+7. ¿Qué pasa si quiero agregar una nueva categoría a un factor que no se encuentra en los niveles existentes?
+
+Respuesta 7: Los factores tienen niveles establecidos. Por eso se usan para clasificar datos. Su agregamos una categoría a un factor que no se encuentra en niveles existentes R no reconocerá que esa categoría. Por lo tanto, para hacer este tipo de operaciones lo que se debe ed hacer es modificar el factor. 
+
+8. Si en un dataframe, a una variable de tipo `factor` le agrego un nuevo elemento que *no se encuentra en los niveles existentes*, ¿cuál sería el resultado esperado y por qué?
+    * El nuevo elemento
+    * `NA
+    
+Respuesta 8: Los dataframes en R se trabajan como que en cada fila hay una observación y en cada columna hay una variable. Por lo que se si agrego un elemento que no está contemplado en la variable de tipo factor el nuevo elemento aparecerá como NA(Not applicable) porque este nuevo elemento no tendrá un espacio designado en la variable factor y por lo tanto no estará presente en el dataframe. 
+
+
+
+### Listado de preguntas teóricas
+
+1. Para las siguientes sentencias de `base R`, liste su contraparte de `dplyr`:
+    * `str()`
+    * `df[,c("a","b")]`
+    * `names(df)[4] <- "new_name"` donde la posición 4 corresponde a la variable `old_name`
+    * `df[df$variable == "valor",]`
+    
+    
+2. Al momento de filtrar en SQL, ¿cuál keyword cumple las mismas funciones que el keyword `OR`  para filtrar uno o más elementos una misma columna?
+3. ¿Por qué en R utilizamos funciones de la familia apply (lapply,vapply) en lugar de utilizar ciclos?
+4. ¿Cuál es la diferencia entre utilizar `==` y `=` en R?
+5. ¿Cuál es la forma correcta de cargar un archivo de texto donde el delimitador es `:`?
+6. ¿Qué es un vector y en qué se diferencia en una lista en R?
+7. ¿Qué pasa si quiero agregar una nueva categoría a un factor que no se encuentra en los niveles existentes?
+8. Si en un dataframe, a una variable de tipo `factor` le agrego un nuevo elemento que *no se encuentra en los niveles existentes*, ¿cuál sería el resultado esperado y por qué?
+    * El nuevo elemento
+    * `NA`
+9. En SQL, ¿para qué utilizamos el keyword `HAVING`?
+10. Si quiero obtener como resultado las filas de la tabla A que no se encuentran en la tabla B, ¿cómo debería de completar la siguiente sentencia de SQL?
+
+    * SELECT * FROM A _______ B ON A.KEY = B.KEY WHERE __________ = __________
+  
+Extra: ¿Cuántos posibles exámenes de 5 preguntas se pueden realizar utilizando como banco las diez acá presentadas?
+(responder con código de R.)
+
+Respuesta Extra: Para responder las preguntas lo que debemos de hacer es encontrar las permutaciones del problemas. Siendo 10 el conjunto y 5 la muestra. 
+
+Conjunto <- v
+Muestra <- 5
+Permutaciones <- c(1:Conjunto)
+
+###Usando la función combinations tenemos las permutaciones
+
+Respuesta <- combinations(Conjunto, Muestra, Permutaciones)
+nrow(Respuesta)
+
+Nos da un total de 30240 permutaciones. Debido a que esto sería el resultado de que en cada set de preguntas no se repita ninguna. 
+
+
+
+
+
+
+## Sección II Preguntas prácticas.
+
+
+* Conteste las siguientes preguntas utilizando sus conocimientos de R. Adjunte el código que utilizó para llegar a sus conclusiones en un chunk del markdown.
+
+A. De los clientes que están en más de un país,¿cuál cree que es el más rentable y por qué?
+
+B. Estrategia de negocio ha decidido que ya no operará en aquellos territorios cuyas pérdidas sean "considerables". Bajo su criterio, ¿cuáles son estos territorios y por qué ya no debemos operar ahí?
+
+
+
+
+```{r, echo=FALSE, cache=TRUE}
+
+###Preguntas prácticas
+library('readr')
+library('tidyverse')
+library('dplyr')
+library('highcharter')
+Parcial <- readRDS("parcial_anonimo.rds")
+
+df <- Parcial
+view(df)
+
+df %>%
+  select(Pais) %>%
+  group_by(year) %>% 
+  summarise(n = n_distinct(artist))
+
+
+
+```
+
+
+```{r }
+###resuelva acá
+
+```
+
