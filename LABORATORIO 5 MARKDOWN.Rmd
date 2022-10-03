@@ -1,0 +1,145 @@
+---
+title: "LABORATORIO 5"
+author: "Marco Ocampo"
+date: "2/10/2022"
+output: rmarkdown::github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library("dplyr")
+library("tidyverse")
+library("readr")
+library("lubridate")
+
+### Pregunta 1 ###
+
+Eclipse_Pasado <- "21 Aug 2017 18:26:40"
+Eclipse_Pasado <- dmy_hms(Eclipse_Pasado)
+Eclipse_Pasado
+
+
+
+Sydnodic_Months <- days(x=29)+hours(x=12)+minutes(x=44)+seconds(3)
+Sydnodic_Months
+
+
+Saros <- Sydnodic_Months*223
+Saros
+
+
+Eclipse_Nuevo <- Saros+Eclipse_Pasado
+Eclipse_Nuevo <- ymd_hms(Eclipse_Nuevo)
+Eclipse_Nuevo
+
+
+### Pregunta 2 ###
+
+View(DATAFECHAS)
+ df <- DATAFECHAS
+ View(df)
+
+### Pregunta 2.A ###
+
+df %>%
+  select(`Caller ID`) %>%
+  group_by(`Fecha Creación`)
+
+### Pregunta 3 ###
+
+# Ejercicio 3
+
+Zodiaco <- function(Cumpleaños){
+  
+  fecha <- dmy(Cumpleaños)
+  mes <- month(Cumpleaños)
+  dia <- day(Cumpleaños)
+  
+  if (mes==1){
+    signo <- ifelse(test = dia<20,
+                    yes = 'Capricornio',
+                    no = 'Acuario')
+  } else if(mes==2){
+    signo <- ifelse(test = dia<19,
+                    yes = 'Acuario',
+                    no = 'Aiscis')
+  } else if(mes==3){
+    signo <- ifelse(test = dia<21,
+                    yes = 'Piscis',
+                    no = 'Aries')
+  } else if(mes==4){
+    signo <- ifelse(test = dia<20,
+                    yes = 'Aries',
+                    no = 'Tauro')
+  } else if(mes==5){
+    signo <- ifelse(test = dia<21,
+                    yes = 'Tauro',
+                    no = 'Geminis')
+  } else if(mes==6){
+    signo <- ifelse(test = dia<21,
+                    yes = 'Geminis',
+                    no = 'Cancer')
+  } else if(mes==7){
+    signo <- ifelse(test = dia<23,
+                    yes = 'Cancer',
+                    no = 'Leo')
+  } else if(mes==8){
+    signo <- ifelse(test = dia<23,
+                    yes = 'Leo',
+                    no = 'Virgo')
+  } else if(mes==9){
+    signo <- ifelse(test = dia<23,
+                    yes = 'Virgo',
+                    no = 'Libra')
+  } else if(mes==10){
+    signo <- ifelse(test = dia<23,
+                    yes = 'Libra',
+                    no = 'Escorpio')
+  } else if(mes==11){
+    signo <- ifelse(test = dia<22,
+                    yes = 'Escorpio',
+                    no = 'Sagitario')
+  } else if(mes==12){
+    signo <- ifelse(test = dia<22,
+                    yes = 'Sagitario',
+                    no = 'Capricornio')
+  }
+  
+  return(signo)
+  
+}
+Zodiaco('07-08-2001')
+
+### Pregunta 4 ###
+
+
+install.packages("nycflights13")
+library(nycflights13)
+
+View(flights)
+
+flights$Nuevo_dept <- format(strptime(sprintf('%04d', 
+                                              flights$dep_time), 
+                                      format = '%H%M'),
+                             '%H:%M')
+flights$Nuevo_arrival <- format(strptime(sprintf('%04d', 
+                                                flights$arr_time), 
+                                        format = '%H%M'),
+                               '%H:%M')
+flights$Nuevo_sched_dept <- format(strptime(sprintf('%04d', 
+                                                      flights$sched_dep_time), 
+                                              format = '%H%M'),
+                                     '%H:%M')
+flights$Nuevo_sched_arrival <- format(strptime(sprintf('%04d', 
+                                                      flights$sched_arr_time), 
+                                              format = '%H%M'),
+                                     '%H:%M')
+View(flights)
+
+flights$Atraso_total <- flights$dep_delay + flights$arr_delay
+View(flights)
+  
+
+```
+
